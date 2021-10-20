@@ -25,6 +25,11 @@ class BankAccount:
         interest = self.balance * 0.00083
         self.balance += interest
         print(round(self.balance, 2))
+    
+    def print_statement(self):
+        print(self.name)
+        print(f"Account No: {self.accountNum}")
+        print(f"Balance: ${round(self.balance, 2)}")
 
 
         
@@ -34,3 +39,4 @@ test.withdraw(5)
 test.withdraw(100)
 test.get_balance()
 test.add_interest()
+test.print_statement()
