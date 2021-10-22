@@ -75,15 +75,11 @@ def monthly_interest():
         bank[i].add_interest()
 
 def bank_app_start():
-    # welcome message
-    print("Welcome to the Bank!")
-    user_input = input("Enter Account Name: >> ")
 
     #looping through accounts
     for i in range(len(bank)):
         if bank[i].name == user_input:
-            print(bank[i].name)
-            print(user_input)
+            
             account = bank[i]
 
             print(f"What would you like to do today, {bank[i].name}?")
@@ -92,21 +88,40 @@ def bank_app_start():
             if user_action.lower() == "deposit":
                 amount = input("How much would you like to deposit? >> ")
                 bank[i].deposit(int(amount))
+                user_cont = input("Anything else today? (yes/no) >> ")
+                bank_app_end(user_cont)
 
             elif user_action.lower() == "withdraw":
                 amount = input("How much would you like to withdraw? >> ")
                 bank[i].withdraw(int(amount))
+                user_cont = input("Anything else today? (yes/no) >> ")
+                bank_app_end(user_cont)
             
             elif user_action.lower() == "statement":
                 bank[i].print_statement()
-
+                user_cont = input("Anything else today? (yes/no) >> ")
+                bank_app_end(user_cont)
             else: 
-                print("error")
+                print("Try Again")
+                user_cont = "error"
+                bank_app_end(user_cont)
 
-            
+def bank_app_end(user_cont):
+
+    if user_cont.lower() == "yes":
+        bank_app_start()
+    elif user_cont.lower()=="no":
+        print("Have a nice day")
+        return
+    else:
+        bank_app_start()   
+
 
 
 
 monthly_interest()
+# welcome message
+print("Welcome to the Bank!")
+user_input = input("Enter Account Name: >> ")
 bank_app_start()
 
