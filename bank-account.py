@@ -36,78 +36,67 @@ class BankAccount:
         print(self.name)
         print(f"Account No: {self.accountNum}")
         print(f"Balance: ${round(self.balance, 2)}")
+        print(f"Account Type: {self.type}")
 
-
-        
-test = BankAccount("jenn", "0123", 30, "checkings")
-# test.deposit(30)
-# test.withdraw(5)
-# test.withdraw(100)
-# test.get_balance()
-# test.add_interest()
-# test.print_statement()
-
+# CREATING ACCOUNTS  
+jenniferAccount = BankAccount("Jennifer Carreno", "0123", 5000, "checkings")
 cassidyAccount = BankAccount("Cassidy Sneed", 142353, 50, "checkings")
-# cassidyAccount.deposit(40)
-# cassidyAccount.add_interest()
-# cassidyAccount.print_statement()
-
 lissaAccount = BankAccount("Lissa Laymon", 392084, 80, "savings")
-# lissaAccount.withdraw(20)
-# lissaAccount.deposit(200)
-# lissaAccount.print_statement()
-
 mitchellAccount = BankAccount("Mitchell", 3141592, 0, "savings")
-# mitchellAccount.deposit(400000)
-# mitchellAccount.print_statement()
-# mitchellAccount.add_interest()
-# mitchellAccount.print_statement()
-# mitchellAccount.withdraw(150)
-# mitchellAccount.print_statement()
 
-print("---------------------")
 
-bank = [test, cassidyAccount, lissaAccount, mitchellAccount]
+bank = [jenniferAccount, cassidyAccount, lissaAccount, mitchellAccount]
 
+# -------------------------------FUNCTIONS------------------------------------------------
+
+# MONTHLY INTERESTS
 def monthly_interest():
     for i in range(len(bank)):
         
         bank[i].add_interest()
 
+# BANK APP FUNTCION
 def bank_app_start():
 
     #looping through accounts
     for i in range(len(bank)):
-        if bank[i].name == user_input:
-            
-            account = bank[i]
 
-            print(f"What would you like to do today, {bank[i].name}?")
+        # FIND MATCHING ACCONT
+        if bank[i].name == user_input:
+            account = bank[i]
+            print(f"What would you like to do today, {account.name}?")
             user_action = input("Deposit, Withdraw, Statement >> ")
             
+            # DEPOSIT
             if user_action.lower() == "deposit":
                 amount = input("How much would you like to deposit? >> ")
-                bank[i].deposit(int(amount))
+                account.deposit(int(amount))
                 user_cont = input("Anything else today? (yes/no) >> ")
                 bank_app_end(user_cont)
 
+            # WITHDRAW
             elif user_action.lower() == "withdraw":
                 amount = input("How much would you like to withdraw? >> ")
-                bank[i].withdraw(int(amount))
+                account.withdraw(int(amount))
                 user_cont = input("Anything else today? (yes/no) >> ")
                 bank_app_end(user_cont)
             
+            # STATEMENT
             elif user_action.lower() == "statement":
-                bank[i].print_statement()
+                account.print_statement()
                 user_cont = input("Anything else today? (yes/no) >> ")
                 bank_app_end(user_cont)
+            
+            # ERROR MESSAGE
             else: 
                 print("Try Again")
                 user_cont = "error"
                 bank_app_end(user_cont)
 
+# APP END
 def bank_app_end(user_cont):
 
+    # KEEPS GOING IF USER WANTS TO DO MORE
     if user_cont.lower() == "yes":
         bank_app_start()
     elif user_cont.lower()=="no":
@@ -116,11 +105,10 @@ def bank_app_end(user_cont):
     else:
         bank_app_start()   
 
-
-
-
+# ---------------------------------------------------------------------------------------
 monthly_interest()
-# welcome message
+
+# WELCOME MESSAGE
 print("Welcome to the Bank!")
 user_input = input("Enter Account Name: >> ")
 bank_app_start()
